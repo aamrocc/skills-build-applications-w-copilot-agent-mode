@@ -22,13 +22,6 @@ from . import views
 from django.http import JsonResponse
 
 
-router = DefaultRouter()
-router.register(r'users', views.UserViewSet)
-router.register(r'teams', views.TeamViewSet)
-router.register(r'activities', views.ActivityViewSet)
-router.register(r'workouts', views.WorkoutViewSet)
-router.register(r'leaderboard', views.LeaderboardEntryViewSet)
-
 # Helper to get codespace URL
 def get_codespace_url():
     codespace_name = os.environ.get('CODESPACE_NAME')
@@ -50,5 +43,9 @@ def api_root(request):
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', api_root, name='api_root'),
-    path('api/', include(router.urls)),
+    path('api/users/', views.get_users, name='users'),
+    path('api/teams/', views.get_teams, name='teams'),
+    path('api/activities/', views.get_activities, name='activities'),
+    path('api/workouts/', views.get_workouts, name='workouts'),
+    path('api/leaderboard/', views.get_leaderboard, name='leaderboard'),
 ]
